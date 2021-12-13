@@ -60,7 +60,7 @@ class AuthController extends GetxController implements GetxService {
       if (_profileModel.active == 1) {
         LocationPermission permission = await Geolocator.checkPermission();
         if(permission == LocationPermission.denied || permission == LocationPermission.deniedForever
-            || permission == LocationPermission.whileInUse) {
+            /*|| permission == LocationPermission.whileInUse*/) {
           Get.dialog(ConfirmationDialog(
             icon: Images.location_permission,
             iconSize: 200,
@@ -312,7 +312,7 @@ class AuthController extends GetxController implements GetxService {
 
   void _checkPermission(Function callback) async {
     LocationPermission permission = await Geolocator.requestPermission();
-    if(permission == LocationPermission.denied || permission == LocationPermission.whileInUse) {
+    if(permission == LocationPermission.denied /*|| permission == LocationPermission.whileInUse*/) {
       Get.dialog(CustomAlertDialog(description: 'you_denied'.tr, onOkPressed: () async {
         Get.back();
         await Geolocator.requestPermission();

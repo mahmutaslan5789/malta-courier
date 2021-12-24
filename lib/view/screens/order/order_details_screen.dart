@@ -24,6 +24,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("onMessage: ${message.data}");
       Get.find<OrderController>().getCurrentOrders();

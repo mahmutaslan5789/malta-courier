@@ -16,6 +16,7 @@ import 'package:efood_multivendor_driver/view/base/title_widget.dart';
 import 'package:efood_multivendor_driver/view/screens/home/widget/count_card.dart';
 import 'package:efood_multivendor_driver/view/screens/home/widget/earning_widget.dart';
 import 'package:efood_multivendor_driver/view/screens/order/running_order_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:geolocator/geolocator.dart';
@@ -38,9 +39,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _loadData();
-
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      String _type = message.data['type'];
+      if(_type == 'order_status') {
+        await _loadData();
+      }
+    });
     return Scaffold(
-
       appBar: AppBar(
         backgroundColor: Theme.of(context).cardColor,
         leading: Padding(
